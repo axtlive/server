@@ -7,7 +7,7 @@ const log = require("./log");
 
 const app = new express();
 
-app.use(express.static("./page/"));
+app.use(express.static("./view/"));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,7 +32,7 @@ app.post("/login", loader.get("/login"));
 app.post("/register", loader.get("/register"));
 
 app.listen(globalConfig.port, () => {
-  console.log(`服务已启动,并监听端口${globalConfig.port}`);
+  // console.log(`服务已启动,并监听端口${globalConfig.port}`);
   const time = moment().format("YYYY-MM-DD, h:mm:ss");
   log("服务已启动,启动时间是 " + time);
 });

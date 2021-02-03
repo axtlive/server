@@ -1,0 +1,9 @@
+{
+  "name": "node-app",
+  "script": "index.js",
+  "log_data_format": "YYYY-MM-DD HH:mm Z",
+  "out_file": "pm2log/node-app.stdout.log",
+  "watch": true,
+  "instances": "max",
+  "exec_mode": "cluster"
+}
