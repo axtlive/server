@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const globalConfig = require("./config");
+const globalConfig = require("./config/config");
 
 // const controllerSet = [];
 const pathMap = new Map();

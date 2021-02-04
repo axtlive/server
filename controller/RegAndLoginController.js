@@ -3,7 +3,7 @@ const timeUtil = require("../util/TimeUtil");
 const respUtil = require("../util/RespUtil");
 const url = require("url");
 const moment = require("moment");
-const log = require("../log");
+const log = require("../util/LogUtil");
 
 const path = new Map();
 

@@ -1,9 +1,9 @@
 const express = require("express");
 const moment = require("moment");
 
-const globalConfig = require("./config");
+const globalConfig = require("./config/config");
 const loader = require("./loader");
-const log = require("./log");
+const log = require("./util/LogUtil");
 
 const app = new express();
 
