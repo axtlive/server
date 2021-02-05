@@ -32,6 +32,14 @@ app.use(function (req, res, next) {
 app.use("/account", regAndLoginRouter);
 app.use("/students", studentRouter);
 
+// app.get('*', function (request, response){
+//   response.sendFile(path.resolve(__dirname, 'view', 'index.html'))
+// })
+
+app.get('/in',()=>{
+  console.lodd(111)
+})
+
 // 404 错误处理
 app.use(function (req, res, next) {
   res.sendFile(path.join(__dirname, "view/404.html"));
@@ -40,7 +48,7 @@ app.use(function (req, res, next) {
 // 500 错误处理
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
-  res.render("error");
+  res.send("Server error");
 });
 
 app.listen(globalConfig.port, () => {
