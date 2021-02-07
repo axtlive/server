@@ -5,7 +5,7 @@ const DbConnection = () =>
     host: "cdb-h1s30b34.cd.tencentcdb.com",
     port: "10000",
     user: "root",
-    password: "25257758520ztT",
+    password: "",
     database: "axtlive_pxj",
   });
 
