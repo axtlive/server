@@ -1,4 +1,4 @@
-const dbutil = require("./DBUtil");
+const dbutil = require("./DbConnection");
 const respUtil = require("../util/RespUtil");
 
 // 查询账户是否存在
