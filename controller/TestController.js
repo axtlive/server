@@ -3,7 +3,6 @@ const respUtil = require("../util/RespUtil");
 
 class TestController {
   actionTest(req, res) {
-    cd.lo(dsd)
     TestDao.queryTest([], (result) => {
       // res.writeHead(200, {
       //   "content-type": "application/json",
@@ -13,7 +12,9 @@ class TestController {
       // });
       // res.write(respUtil.writeResult(false, "查询成功", result.length, result));
       // res.end();
-      res.status(200).send(respUtil.writeResult(false, "查询成功", result.length, result));
+      res
+        .status(200)
+        .send(respUtil.writeResult(false, "查询成功", result.length, result));
     });
   }
 }
