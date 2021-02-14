@@ -7,23 +7,17 @@ const cookieParser = require("cookie-parser");
 
 const globalConfig = require("./config/config");
 const log = require("./util/LogUtil");
+const { getDate } = require("./util/TimeUtil");
+const optionsReq = require("./middlewares/optionsRequest");
 
 const regAndLoginRouter = require("./routes/regAndLogin");
 const studentRouter = require("./routes/student");
 const testRouter = require("./routes/testRoutes");
+const fileRouter = require("./routes/fileRoutes");
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With",
-  );
-  next();
-});
-
+app.use(optionsReq);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -31,28 +25,16 @@ app.use(express.static(path.join(__dirname, "view")));
 
 // app.use("/account", regAndLoginRouter);
 // app.use("/students", studentRouter);
+
+// 测试
 app.use("/test", testRouter);
 
-app.post(
-  "/upload",
-  multer({ dest: "./upload" }).array("file", 10),
-  (req, res) => {
-    const files = req.files;
-    console.log(req);
-    const fileList = [];
-    for (let i in files) {
-      const f = files[i];
-      fs.renameSync(f.path, `upload/${f.originalname}`, { encoding: "utf8" });
-      f.path = `upload/${f.originalname}`;
-      fileList.push(f);
-    }
-    res.send(fileList);
-  },
-);
+// 文件上传
+app.use("/upload", fileRouter);
 
-app.get("/download", (req, res) => {
-  const url = req.params.url;
-});
+// app.get("/download", (req, res) => {
+//   const url = req.params.url;
+// });
 
 // app.get("*", (request, response) => {
 //   response.sendFile(path.resolve(__dirname, "view", "index.html"));
