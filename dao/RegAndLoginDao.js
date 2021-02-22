@@ -7,7 +7,7 @@ function queryIsExist(user, success) {
   const params = [user];
   const connection = dbutil.createConnection();
   connection.connect();
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     connection.query(querySQL, params, (error, result) => {
       if (!error) {
         connection.end();
