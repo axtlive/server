@@ -10,13 +10,13 @@ function queryIsExist(user, success) {
   return new Promise((resolve, reject) => {
     connection.query(querySQL, params, (error, result) => {
       if (!error) {
-        connection.end();
         resolve(result);
         // success(result);
       } else {
         console.log(error);
         reject(error);
       }
+      connection.end();
     });
   });
 }

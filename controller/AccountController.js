@@ -22,10 +22,10 @@ function logWhenUseInterface(interface) {
 class AccountController extends BasicController {
   // 登录
   async login(req, res) {
-    const parseData = JSON.parse(req.body);
-    console.log(parseData)
+    console.log("25-------------", req.body);
+    const { user, password } = req.body;
     // 先查询数据库中的账号是否存在
-    const result = await queryIsExist(parseData);
+    const result = await queryIsExist(user);
     console.log("35------", result);
     if (result !== null && result.length !== 0) {
       // 存在 则去查询账号密码是否正确
@@ -56,7 +56,7 @@ class AccountController extends BasicController {
           res.send(respUtil.writeResult(false, "注册成功"));
         }
       );
-    }else{
+    } else {
       res.send(respUtil.writeResult(true, "注册失败，账户已存在，请前往登录"));
     }
   }
