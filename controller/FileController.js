@@ -3,7 +3,7 @@ const moment = require("moment");
 const respUtil = require("../util/RespUtil");
 
 class FileController {
-  static actionUpload(req, res) {
+  static multipleUpload(req, res) {
     const files = req.files;
     console.log(req);
     const fileList = [];
@@ -35,7 +35,7 @@ class FileController {
       );
     }
   }
-  static actionSingleUpload(req, res) {}
+  static singleUpload(req, res) {}
 }
 
 module.exports = FileController;

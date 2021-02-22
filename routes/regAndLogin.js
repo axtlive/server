@@ -3,6 +3,9 @@ const router = express.Router();
 
 const loader = require("../loader");
 
+const AccountController = require("../controller/AccountController");
+const accountController = new AccountController();
+
 /* GET  listing. */
 
 // // 登录
@@ -14,14 +17,13 @@ const loader = require("../loader");
 //   res.send("register get");
 // });
 
-
 /* POST  listing. */
 
 // 登录
-router.post("/login", loader.get("/login"));
+// router.post("/login", loader.get("/login"));
+router.post("/login", accountController.login);
+
 // 注册
 router.post("/register", loader.get("/register"));
-
-
 
 module.exports = router;

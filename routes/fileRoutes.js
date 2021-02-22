@@ -7,19 +7,19 @@ const FileController = require("../controller/FileController");
 router.post(
   "/md",
   multer({ dest: "upload/md" }).single("file"),
-  FileController.actionUpload,
+  FileController.multipleUpload,
 );
 
 router.post(
   "/image",
   multer({ dest: "upload/image" }).array("file", 10),
-  FileController.actionUpload,
+  FileController.multipleUpload,
 );
 
 router.post(
   "/other",
   multer({ dest: "upload/other" }).array("file", 10),
-  FileController.actionUpload,
+  FileController.multipleUpload,
 );
 
 module.exports = router;

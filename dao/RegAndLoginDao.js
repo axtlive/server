@@ -7,14 +7,18 @@ function queryIsExist(user, success) {
   const params = [user];
   const connection = dbutil.createConnection();
   connection.connect();
-  connection.query(querySQL, params, (error, result) => {
-    if (!error) {
-      success(result);
-    } else {
-      console.log(error);
-    }
+  new Promise((resolve, reject) => {
+    connection.query(querySQL, params, (error, result) => {
+      if (!error) {
+        connection.end();
+        resolve(result);
+        // success(result);
+      } else {
+        console.log(error);
+        reject(error);
+      }
+    });
   });
-  connection.end();
 }
 
 // 验证登录
@@ -49,6 +53,12 @@ function registerAccount(user, password, ctime, utime, success) {
   });
   connection.end();
 }
-module.exports.queryIsExist = queryIsExist;
-module.exports.queryPasswordByUser = queryPasswordByUser;
-module.exports.registerAccount = registerAccount;
+
+module.exports = {
+  queryIsExist,
+  queryPasswordByUser,
+  registerAccount,
+};
+// module.exports.queryIsExist = queryIsExist;
+// module.exports.queryPasswordByUser = queryPasswordByUser;
+// module.exports.registerAccount = registerAccount;
