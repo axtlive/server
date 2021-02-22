@@ -5,7 +5,7 @@ const respUtil = require("../util/RespUtil");
 function queryIsExist(user, success) {
   const querySQL = "select * from account where user = ?;";
   const params = [user];
-  const connection = dbutil.createConnection();
+  const connection = dbutil.DbConnection();
   connection.connect();
   return new Promise((resolve, reject) => {
     connection.query(querySQL, params, (error, result) => {
@@ -25,7 +25,7 @@ function queryIsExist(user, success) {
 function queryPasswordByUser(user, success) {
   const querySQL = "select * from account where user = ?;";
   const params = [user];
-  const connection = dbutil.createConnection();
+  const connection = dbutil.DbConnection();
   connection.connect();
   connection.query(querySQL, params, (error, result) => {
     if (!error) {

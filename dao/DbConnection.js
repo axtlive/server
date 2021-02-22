@@ -9,4 +9,4 @@ const DbConnection = () =>
     database: "axtlive_test",
   });
 
-module.exports = DbConnection;
+module.exports.DbConnection = DbConnection;
