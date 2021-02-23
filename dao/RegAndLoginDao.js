@@ -1,64 +1,37 @@
-const dbutil = require("./DbConnection");
+const DBUtil = require("./DbConnection");
 const respUtil = require("../util/RespUtil");
 
-// 查询账户是否存在
-function queryIsExist(user, success) {
-  const querySQL = "select * from account where user = ?;";
-  const params = [user];
-  const connection = dbutil.DbConnection();
+// 连接数据库 进行操作 并返回promise
+const basicDbOperation = (sql, params) => {
+  const connection = DBUtil.DbConnection();
   connection.connect();
   return new Promise((resolve, reject) => {
-    connection.query(querySQL, params, (error, result) => {
+    connection.query(sql, params, (error, result) => {
       if (!error) {
         resolve(result);
-        // success(result);
       } else {
-        console.log(error);
         reject(error);
       }
       connection.end();
     });
   });
-}
+};
 
-// 验证登录
-function queryPasswordByUser(user, success) {
+// 根据账号 查询账号明细
+const queryDetailByAccount = (user) => {
   const querySQL = "select * from account where user = ?;";
   const params = [user];
-  const connection = dbutil.DbConnection();
-  connection.connect();
-  connection.query(querySQL, params, (error, result) => {
-    if (!error) {
-      success(result);
-    } else {
-      console.log(error);
-    }
-  });
-  connection.end();
-}
+  return basicDbOperation(querySQL, params);
+};
 
 // 注册
-function registerAccount(user, password, ctime, utime, success) {
+const registerAccount = (params) => {
   const insertSQL =
-    "insert into account (`user`,`password`,`ctime`,`utime`) values (?,?,?,?);";
-  const params = [user, password, ctime, utime];
-  const connection = dbutil.createConnection();
-  connection.connect();
-  connection.query(insertSQL, params, (error, result) => {
-    if (!error) {
-      success(result);
-    } else {
-      console.log(error);
-    }
-  });
-  connection.end();
-}
+    "insert into account (`user`,`password`,`register_time`) values (?,?,?);";
+  return basicDbOperation(insertSQL, params);
+};
 
 module.exports = {
-  queryIsExist,
-  queryPasswordByUser,
+  queryDetailByAccount,
   registerAccount,
 };
-// module.exports.queryIsExist = queryIsExist;
-// module.exports.queryPasswordByUser = queryPasswordByUser;
-// module.exports.registerAccount = registerAccount;

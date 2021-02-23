@@ -24,6 +24,6 @@ const accountController = new AccountController();
 router.post("/login", accountController.login);
 
 // 注册
-// router.post("/register", loader.get("/register"));
+router.post("/register", accountController.register);
 
 module.exports = router;
