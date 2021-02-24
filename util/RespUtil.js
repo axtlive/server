@@ -1,6 +1,10 @@
-function writeResult(failed, message, total, data) {
-    // console.log(JSON.stringify({status, msg, data}));
-    return JSON.stringify({failed, message, total, data})
-}
-
-module.exports.writeResult = writeResult;
+const writeResult = (
+    failed,
+    message,
+    total = 0,
+    data = [],
+    status = "unknown"
+  ) => JSON.stringify({ failed, message, total, data, status });
+  
+  module.exports.writeResult = writeResult;
+  

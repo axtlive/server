@@ -27,7 +27,7 @@ class AccountController extends BasicController {
     if (result && result.length) {
       // 存在 则去查询账号密码是否正确
       if (result[0].password === password) {
-        res.send(respUtil.writeResult(false, "登录成功"));
+        res.send(respUtil.writeResult(false, "登录成功",1,result[0],'ok'));
       } else {
         res.send(respUtil.writeResult(true, "登录失败，密码错误，请重试"));
       }
