@@ -48,9 +48,9 @@ app.use((req, res, next) => {
 });
 
 // 500 错误处理
-app.use((err, req, res, next) => {
-  res.status(err.status || 500).send("Server error");
-});
+// app.use((err, req, res, next) => {
+//   res.status(err.status || 500).send("Server error");
+// });
 
 app.listen(globalConfig.port, () => {
   console.log(`后端服务已启动,并监听端口${globalConfig.port}`);

@@ -1,9 +1,9 @@
-const DbConnection = require("./DbConnection");
+const DBUtil = require("./DbConnection");
 
 const queryTest = (_, success) => {
   const querySQL = "select * from worker order by id;";
   const params = [];
-  const connection = DbConnection();
+  const connection = DBUtil.DbConnection();
   connection.connect();
   connection.query(querySQL, params, (error, result) => {
     if (!error) {
