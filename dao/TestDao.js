@@ -88,7 +88,45 @@ function queryTotalByParam(key = '', sex = -1, success) {
     connection.end();
 }
 
+<<<<<<< Updated upstream
 module.exports.queryAllStudents = queryAllStudents;
 module.exports.queryStudentsByPage = queryStudentsByPage;
 module.exports.queryStudents = queryStudents;
 module.exports.queryTotalByParam = queryTotalByParam;
+=======
+// 连接数据库 进行操作 并返回promise
+const basicDbOperation = (sql, params) => {
+  const connection = DBUtil.DbConnection();
+  connection.connect();
+  return new Promise((resolve, reject) => {
+    connection.query(sql, params, (error, result) => {
+      if (!error) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+      connection.end();
+    });
+  });
+};
+
+function queryAllStudents(_, success) {
+  const querySQL = "select * from students order by id desc;";
+  const params = [];
+  const connection = DBUtil.DbConnection();
+  connection.connect();
+  connection.query(querySQL, params, (error, result) => {
+    if (!error) {
+      success(result);
+    } else {
+      console.log(error);
+    }
+  });
+  connection.end();
+}
+
+module.exports = {
+  queryTest,
+  queryAllStudents,
+};
+>>>>>>> Stashed changes
