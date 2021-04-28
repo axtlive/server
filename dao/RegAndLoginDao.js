@@ -1,5 +1,4 @@
-const DBUtil = require("./DbConnection");
-const respUtil = require("../util/RespUtil");
+const DBUtil = require("./DBUtil");
 
 // 连接数据库 进行操作 并返回promise
 const basicDbOperation = (sql, params) => {

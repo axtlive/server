@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "view")));
 
 app.use("/account", regAndLoginRouter);
 
-// app.use("/students", studentRouter);
+app.use("/students", studentRouter);
 
 // 测试
 app.use("/test", testRouter);
