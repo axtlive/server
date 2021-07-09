@@ -1,94 +1,17 @@
-const dbutil = require('./DBUtil');
-const respUtil = require('../util/RespUtil');
+const { basicDbOperation } = require("./DBUtil");
 
-function queryAllStudents(success) {
-    const querySQL = 'select * from students order by id desc;';
+class TestDao {
+  static queryTest = () => {
+    const sql = "select * from worker order by id;";
     const params = [];
-    const connection = dbutil.createConnection();
-    connection.connect();
-    connection.query(querySQL, params, (error, result) => {
-        if (!error) {
-            success(result);
-        } else {
-            console.log(error);
-        }
-    });
-    connection.end();
+    return basicDbOperation(sql, params);
+  };
+
+  static queryAllStudents = () => {
+    const sql = "select * from students order by id desc;";
+    const params = [];
+    return basicDbOperation(sql, params);
+  };
 }
 
-function queryStudentsByPage(page, pageSize, success) {
-    const querySQL = 'select * from students order by id desc limit ?,?;';
-    const params = [(page - 1) * pageSize, pageSize];
-    const connection = dbutil.createConnection();
-    connection.connect();
-    connection.query(querySQL, params, (error, result) => {
-        if (!error) {
-            success(result);
-        } else {
-            console.log(error);
-        }
-    });
-    connection.end();
-}
-
-
-
-/**
- * @description:关键字 性别 查询并分页
- * @param {type} request response
- * @return: data
- */
-function queryStudents(page = 1, pageSize = 10, key = '', sex = -1, success) {
-    let querySQL;
-    let params;
-    let total;
-    if (sex = -1) {
-        querySQL = "select * from students where address like '%' ? '%' order by id desc limit ?,?;";
-        params = [key, (page - 1) * pageSize, pageSize];
-    } else {
-        querySQL = "select * from students where address like '%' ? '%' and sex = ?  order by id desc limit ?,?;";
-        params = [key, sex, (page - 1) * pageSize, pageSize];
-    }
-    const connection = dbutil.createConnection();
-    connection.connect();
-    connection.query(querySQL, params, (error, result) => {
-        if (!error) {
-            success(result);
-        } else {
-            console.log(error);
-        }
-    });
-    connection.end();
-}
-
-/**
- * @description:关键字 查询根据关键词分类的总数
- * @param {type} request response
- * @return: data
- */
-function queryTotalByParam(key = '', sex = -1, success) {
-    let querySQL;
-    let params;
-    if (sex = -1) {
-        querySQL = "select count(1) as count from students where address like '%' ? '%';";
-        params = [key];
-    } else {
-        querySQL = "select count(1) as count from students where address like '%' ? '%' and sex = ?;";
-        params = [key, sex,];
-    }
-    const connection = dbutil.createConnection();
-    connection.connect();
-    connection.query(querySQL, params, (error, result) => {
-        if (!error) {
-            success(result);
-        } else {
-            console.log(error);
-        }
-    });
-    connection.end();
-}
-
-module.exports.queryAllStudents = queryAllStudents;
-module.exports.queryStudentsByPage = queryStudentsByPage;
-module.exports.queryStudents = queryStudents;
-module.exports.queryTotalByParam = queryTotalByParam;
+module.exports = TestDao;

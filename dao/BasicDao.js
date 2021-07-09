@@ -1,0 +1,3 @@
+class BasicDao {
+  log() {}
+}

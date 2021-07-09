@@ -1,5 +1,5 @@
 const fs = require("fs");
-const globalConfig = require("./config.js");
+const globalConfig = require("../config/config.js");
 
 const fileName = globalConfig.log_path + globalConfig.log_name;
 

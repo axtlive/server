@@ -1,13 +1,28 @@
-const mysql = require('mysql')
+const mysql = require("mysql");
+const dbConfig = require("../config/dbConfig");
 
-function createConnection() {
-    return mysql.createConnection({
-        host: '127.0.0.1',
-        port: '3306',
-        user: 'root',
-        password: '25257758520ztT',
-        database: 'school_sql',
+const { host, port, user, password, database } = dbConfig;
+
+class DBUtil {
+  static dbConnection = () =>
+    mysql.createConnection({
+      host,
+      port,
+      user,
+      password,
+      database,
     });
+
+  static basicDbOperation = (sql, params) => {
+    const connection = DBUtil.dbConnection();
+    connection.connect();
+    return new Promise((resolve, reject) => {
+      connection.query(sql, params, (error, result) => {
+        !error ? resolve(result) : reject(error);
+        connection.end();
+      });
+    });
+  };
 }
 
-module.exports.createConnection = createConnection;
+module.exports = DBUtil;

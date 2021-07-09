@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const globalConfig = {};
 
-const conf = fs.readFileSync("./server.conf");
+const conf = fs.readFileSync(process.cwd() + "/config/server.conf");
 
 const configArr = conf.toString().split("\n");
 
