@@ -1,20 +1,17 @@
-const DBUtil = require("./DbConnection");
+const { basicDbOperation } = require("./DBUtil");
 
-const queryTest = (_, success) => {
-  const querySQL = "select * from worker order by id;";
-  const params = [];
-  const connection = DBUtil.DbConnection();
-  connection.connect();
-  connection.query(querySQL, params, (error, result) => {
-    if (!error) {
-      success(result);
-    } else {
-      console.log(error);
-    }
-  });
-  connection.end();
-};
+class TestDao {
+  static queryTest = () => {
+    const sql = "select * from worker order by id;";
+    const params = [];
+    return basicDbOperation(sql, params);
+  };
 
-module.exports = {
-  queryTest,
-};
+  static queryAllStudents = () => {
+    const sql = "select * from students order by id desc;";
+    const params = [];
+    return basicDbOperation(sql, params);
+  };
+}
+
+module.exports = TestDao;
