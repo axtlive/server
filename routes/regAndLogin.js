@@ -26,4 +26,7 @@ router.post("/login", accountController.login);
 // 注册
 router.post("/register", accountController.register);
 
+router.get("/currentUser", accountController.currentUser);
+
+
 module.exports = router;

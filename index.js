@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "view")));
 
 app.use("/account", regAndLoginRouter);
+app.use("/api", regAndLoginRouter);
 
 // app.use("/students", studentRouter);
 
@@ -44,13 +45,13 @@ app.use("/upload", fileRouter);
 // 404 错误处理
 app.use((req, res, next) => {
   // res.sendFile(path.join(__dirname, "view/404.html"));
-  res.status(404).sendFile(path.join(__dirname, "view/404.html"));
+  res.status(404).send(JSON.stringify({failed: true, msg: "接口或资源不存在" }))
 });
 
 // 500 错误处理
-// app.use((err, req, res, next) => {
-//   res.status(err.status || 500).send("Server error");
-// });
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).send("Server error");
+});
 
 app.listen(globalConfig.port, () => {
   console.log(`后端服务已启动,并监听端口${globalConfig.port}`);
